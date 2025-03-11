@@ -20,15 +20,15 @@ import {RiscZeroCheats} from "risc0/test/RiscZeroCheats.sol";
 import {console} from "forge-std/console.sol";
 import {Test} from "forge-std/Test.sol";
 import {IRiscZeroVerifier} from "risc0/IRiscZeroVerifier.sol";
-import {EvenNumber} from "../contracts/EvenNumber.sol";
+import {CheckSchema} from "../contracts/CheckSchema.sol";
 import {Elf} from "./Elf.sol"; // auto-generated contract after running `cargo build`.
 
 contract EvenNumberTest is RiscZeroCheats, Test {
-    EvenNumber public evenNumber;
+    CheckSchema public evenNumber;
 
     function setUp() public {
         IRiscZeroVerifier verifier = deployRiscZeroVerifier();
-        evenNumber = new EvenNumber(verifier);
+        evenNumber = new CheckSchema(verifier);
         assertEq(evenNumber.get(), 0);
     }
 
@@ -36,7 +36,7 @@ contract EvenNumberTest is RiscZeroCheats, Test {
         // bytes memory t = "/home/mmt/src/risc0-foundry-template/tests/res/data.json";
         bytes memory t = "{\"name\": \"John Doe\",\"age\": 23}";
 
-        (bytes memory journal, bytes memory seal) = prove(Elf.IS_EVEN_PATH, abi.encode(t));
+        (bytes memory journal, bytes memory seal) = prove(Elf.CHECK_SCHEMA_PATH, abi.encode(t));
         console.logBytes(seal);
         console.logBytes(journal);
         evenNumber.set(abi.decode(journal, (bytes)), seal);

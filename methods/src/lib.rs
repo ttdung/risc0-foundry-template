@@ -35,7 +35,7 @@ mod tests {
 
         let x = U256::abi_decode(&session_info.journal.bytes, true).unwrap();
         // let seal = U256::abi_decode(&session_info.seal.bytes, true).unwrap();
-        println!("{:?}",session_info);
+        // println!("{:?}",session_info);
         assert_eq!(x, even_number);
     }
 

@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [[bin]]
-name = "is-even"
-path = "src/bin/is_even.rs"
+name = "check-schema"
+path = "src/bin/check_schema.rs"
 
 [workspace]
 
@@ -16,7 +16,7 @@ jsonschema = {version = "0.8", default-features = false}
 json = "0.12"
 alloy-primitives = { version = "=0.8.3", default-features = false, features = ["rlp", "serde", "std"] }
 alloy-sol-types = { version = "=0.8.3" }
-risc0-zkvm = { version = "1.1", default-features = false, features = ['std'] }
+risc0-zkvm = { version = "1.0.5", default-features = false, features = ['std'] }
 
 [profile.release]
 lto = "thin"

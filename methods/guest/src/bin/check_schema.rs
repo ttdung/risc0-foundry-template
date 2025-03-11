@@ -18,6 +18,7 @@ use alloy_sol_types::SolValue;
 use risc0_zkvm::guest::env;
 use serde_json::json;
 use jsonschema::{Draft, JSONSchema};
+use alloy_primitives::U256;
 
 fn remove_leading_and_trailing_zeros(vec: Vec<u8>) -> Vec<u8> {
     let start = vec.iter().position(|&x| x != 0).unwrap_or(0);
@@ -76,16 +77,19 @@ fn main() {
     // Validate the data against the schema
     let result = compiled_schema.validate(&data);
 
+    let mut rs: Vec<u8> = vec![0; 1];
+
     let number = match result {
-        Err(_) => false,
-        Ok(_) => true
+        Err(_) => rs[0] = 0,
+        Ok(_) => rs[0] = 1
     };
 
-    assert_eq!(number, true, "{}", format!("json is not valid {:?}", data));
+    // assert_eq!(rs, 1, "{}", format!("json is not valid {:?}", data));
     
     // Commit the journal that will be received by the application contract.
     // Journal is encoded using Solidity ABI for easy decoding in the app contract.
-    env::commit_slice(jsonstr.abi_encode().as_slice());
+    // env::commit_slice(jsonstr.abi_encode().as_slice());
+    env::commit_slice(rs.abi_encode().as_slice());
 }
 
 /*

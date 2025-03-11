@@ -23,7 +23,7 @@ import {IRiscZeroVerifier} from "risc0/IRiscZeroVerifier.sol";
 import {RiscZeroGroth16Verifier} from "risc0/groth16/RiscZeroGroth16Verifier.sol";
 import {ControlID} from "risc0/groth16/ControlID.sol";
 
-import {EvenNumber} from "../contracts/EvenNumber.sol";
+import {CheckSchema} from "../contracts/CheckSchema.sol";
 
 /// @notice Deployment script for the RISC Zero starter project.
 /// @dev Use the following environment variable to control the deployment:
@@ -95,8 +95,8 @@ contract EvenNumberDeploy is Script, RiscZeroCheats {
         }
 
         // Deploy the application contract.
-        EvenNumber evenNumber = new EvenNumber(verifier);
-        console2.log("Deployed EvenNumber to", address(evenNumber));
+        CheckSchema schema = new CheckSchema(verifier);
+        console2.log("Deployed EvenNumber to", address(schema));
 
         vm.stopBroadcast();
     }
